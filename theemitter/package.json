@@ -2,7 +2,7 @@
   "name": "theemitter",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://fabrizioGigli.github.io/theemitter",
+  "homepage": "https://fabrizioGigli.github.io/theEmitter",
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
