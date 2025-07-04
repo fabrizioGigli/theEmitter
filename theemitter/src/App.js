@@ -1,7 +1,33 @@
 import logo from './logo.svg';
+import { useState, useEffect } from 'react';
 import './App.css';
 
-function App() {
+const App = () => {
+
+  const [message, setMessage] = useState('Learn React');
+
+  useEffect(() => {
+    fetch('/events').then(
+      response  => response.json()
+    ).then(data => setMessage(data.message))
+
+    const eventSource = new EventSource('https://fabriziogigli.github.io/theEmitter:3000/events');
+
+    if(typeof eventSource !== "undefined") {
+      console.log("OK");
+    }
+    else {
+      console.log("KO");
+    }
+
+    eventSource.onmessage = event => {
+      const eventData = JSON.parse(event.data);
+      setMessage(eventData.message);
+    }
+
+    return () => eventSource.close();
+  }, [])
+
   return (
     <div className="App">
       <header className="App-header">
@@ -15,7 +41,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          You shoud {message}
         </a>
       </header>
     </div>

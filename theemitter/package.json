@@ -3,11 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "https://fabrizioGigli.github.io/theEmitter",
+  "proxy": "https://fabriziogigli.github.io/theEmitter:3000",
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-scripts": "5.0.1",
@@ -16,7 +19,8 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "start": "react-scripts start",
+    "server": "node server.js",
+    "start": "concurrently \"npm run server\" \"PORT=3001 react-scripts start\"",
     "build": "react-scripts build"
   },
   "eslintConfig": {
@@ -38,6 +42,7 @@
     ]
   },
   "devDependencies": {
+    "concurrently": "^9.2.0",
     "gh-pages": "^6.3.0"
   }
 }
