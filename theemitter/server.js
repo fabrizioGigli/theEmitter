@@ -1,9 +1,27 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 
+app.get("/message", (req, res) => {
+  // res.json({"message": "qualcosa"});
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
 
-app.get('/message', (req, res) => {
-    res.json({"message": "qualcosa"});
-})
+  console.log("Trying to send...");
+  
+  const intervalId = setInterval(() => {
+    const data = { message: "hello stupid time: "+ new Date().toISOString()};
+    console.log("Data: " + data.message);
+    res.write("data: " + JSON.stringify(data) + "\n\n");
+  }, 1000);
 
-app.listen(3000, () => {console.log("Server on")});
+  // When client closes connection, stop sending events
+  req.on('close', () => {
+      clearInterval(intervalId);
+      res.end();
+  });
+});
+
+app.listen(3000, () => {
+  console.log("Server on port 3000");
+});

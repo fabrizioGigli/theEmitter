@@ -5,11 +5,30 @@ import "./App.css";
 const App = () => {
   const [message, setMessage] = useState("Learn React");
 
+  // const eventSource = new EventSource("https://fabrizioGigli.github.io");
+  const eventSource = new EventSource("https://fabriziogigli.github.io/theEmitter/message");
+
+  if (typeof eventSource != "undefined") {
+    console.log("Yes");
+  }
+
+  eventSource.onmessage = (event) => {
+    console.log("Raw data: "+event);
+    const eventData = JSON.parse(event.data);
+    console.log(eventData);
+
+    return () => eventSource.close();
+  };
+
+  eventSource.onerror = error => {
+    console.log("Errore: "+JSON.parse(error));
+  }
+
   const getEvents = () => {
     fetch("/messagge")
       .then((response) => {
         response.json();
-        console.log("response: "+response)
+        console.log("response: " + response);
       })
       .then((data) => console.log("data: " + data))
       .catch((err) => {
