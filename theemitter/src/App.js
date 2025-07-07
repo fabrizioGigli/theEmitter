@@ -28,8 +28,8 @@ const App = () => {
   const getEvents = () => {
     fetch("/messagge")
       .then((response) => {
-        response.json();
         console.log("response: " + response);
+        response.json();
       })
       .then((data) => console.log("data: " + data))
       .catch((err) => {
