@@ -21,7 +21,8 @@ const App = () => {
   };
 
   eventSource.onerror = error => {
-    console.log("Errore: "+JSON.parse(error));
+    debugger;
+    console.log("Errore: "+error);
   }
 
   const getEvents = () => {
