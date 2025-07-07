@@ -1,8 +1,12 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
+
+app.use(cors());
 
 app.get("/message", (req, res) => {
   // res.json({"message": "qualcosa"});
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
